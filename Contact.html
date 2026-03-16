@@ -16,6 +16,7 @@
             <li><a href="bpReports.html">bp-Reports</a></li>
             <li><a href="Pricing.html">Pricing</a></li>
             <li><a href="Contact.html">Contact</a></li>
+            
         </ul>
     </div>
 </nav>
@@ -56,7 +57,7 @@
                 </p>
                 <p class="form-error" id="error-msg" style="display:none; margin-top:12px; color:#f87171;">
                     Something went wrong. Please try again or email us at
-                    <a href="/cdn-cgi/l/email-protection#462f2820290624366b342336293432356825292b" style="color:#38bdf8;"><span class="__cf_email__" data-cfemail="c6afa8a0a986a4b6ebb4a3b6a9b4b2b5e8a5a9ab">[email&#160;protected]</span></a>.
+                    <a href="/cdn-cgi/l/email-protection#7c15121a133c1e0c510e190c130e080f521f1311" style="color:#38bdf8;"><span class="__cf_email__" data-cfemail="375e5951587755471a455247584543441954585a">[email&#160;protected]</span></a>.
                 </p>
 
             </form>
@@ -67,7 +68,7 @@
 <footer>
     <div class="container">
         <p>© 2026 bot-Planner Inc. All rights reserved. &nbsp;·&nbsp;
-            <a href="/cdn-cgi/l/email-protection#5930373f36193b29742b3c29362b2d2a773a3634" style="color:#38bdf8;"><span class="__cf_email__" data-cfemail="2b42454d446b495b06594e5b44595f5805484446">[email&#160;protected]</span></a>
+            <a href="/cdn-cgi/l/email-protection#d3babdb5bc93b1a3fea1b6a3bca1a7a0fdb0bcbe" style="color:#38bdf8;"><span class="__cf_email__" data-cfemail="4a23242c250a283a67382f3a25383e3964292527">[email&#160;protected]</span></a>
         </p>
     </div>
 </footer>
@@ -92,11 +93,13 @@
         };
 
         try {
-            // TODO: Replace with your Cloudflare Worker URL once created
-            const response = await fetch('https://YOUR-WORKER.YOUR-SUBDOMAIN.workers.dev/contact', {
+            const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
+                body: JSON.stringify({
+                    access_key: 'dcd0aaba-c1f5-42d7-8ecd-4392db915312',
+                    ...data
+                })
             });
 
             if (response.ok) {

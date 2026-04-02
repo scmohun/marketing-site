@@ -24,8 +24,7 @@
     <div class="container">
         <h1>Start Using bp-Reports Today</h1>
         <p class="subheadline">
-            Automated reporting. Professional presentation. Zero spreadsheet formatting.<br>
-            
+            Automated reporting. Professional presentation. Zero spreadsheet formatting.
         </p>
     </div>
 </header>
@@ -68,18 +67,18 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="website">Website</label>
-                    <input type="text" id="website" name="website" placeholder="yourcompany.com (optional)">
+                    <label for="website">Website <span style="color:#64748b; font-size:0.85rem;">(optional)</span></label>
+                    <input type="text" id="website" name="website" placeholder="yourcompany.com">
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required placeholder="At least 8 characters">
+                    <input type="password" id="password" name="password" required placeholder="At least 8 characters" autocomplete="new-password">
                 </div>
 
                 <div class="form-group">
                     <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Re-enter your password">
+                    <input type="password" id="confirmPassword" name="confirmPassword" required placeholder="Re-enter your password" autocomplete="new-password">
                 </div>
 
                 <div class="form-check">
@@ -94,7 +93,7 @@
                     Continue to Checkout
                 </button>
 
-                <p class="form-error" id="error-msg" style="display:none; margin-top:12px; color:#f87171;"></p>
+                <p id="error-msg" style="display:none; margin-top:12px; color:#f87171;"></p>
 
             </form>
 
@@ -109,75 +108,88 @@
 
 <footer>
     <div class="container">
-        <p>© 2026 bot-Planner Inc. All rights reserved. &nbsp;·&nbsp;
-            <a href="/cdn-cgi/l/email-protection#2e474048416e4c5e035c4b5e415c5a5d004d4143" style="color:#38bdf8;"><span class="__cf_email__" data-cfemail="325b5c545d7250421f4057425d4046411c515d5f">[email&#160;protected]</span></a>
+        <p>&#169; 2026 bot-Planner Inc. All rights reserved. &nbsp;&#183;&nbsp;
+            <a href="mailto:info@bp-reports.com" style="color:#38bdf8;">info@bp-reports.com</a>
         </p>
     </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    document.getElementById('signup-form').addEventListener('submit', async function(e) {
-        e.preventDefault();
+<script>
+document.getElementById('signup-form').addEventListener('submit', function(e) {
+    e.preventDefault();
 
-        const btn = document.getElementById('signup-btn');
-        const errorMsg = document.getElementById('error-msg');
+    var btn = document.getElementById('signup-btn');
+    var errorMsg = document.getElementById('error-msg');
 
-        // Client-side password match check
-        const pw = document.getElementById('password').value;
-        const pw2 = document.getElementById('confirmPassword').value;
-        if (pw !== pw2) {
-            errorMsg.textContent = 'Passwords do not match. Please try again.';
+    var pw = document.getElementById('password').value;
+    var pw2 = document.getElementById('confirmPassword').value;
+
+    if (pw !== pw2) {
+        errorMsg.textContent = 'Passwords do not match. Please try again.';
+        errorMsg.style.display = 'block';
+        return;
+    }
+
+    if (pw.length < 8) {
+        errorMsg.textContent = 'Password must be at least 8 characters.';
+        errorMsg.style.display = 'block';
+        return;
+    }
+
+    btn.textContent = 'Creating account...';
+    btn.disabled = true;
+    errorMsg.style.display = 'none';
+
+    var payload = {
+        companyName: document.getElementById('company').value,
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        email: document.getElementById('email').value,
+        phoneNumber: document.getElementById('phone').value,
+        website: document.getElementById('website').value,
+        password: pw,
+        company: {
+            name: document.getElementById('company').value,
+            businessType: 'SaaS',
+            websiteUrl: document.getElementById('website').value || 'https://example.com'
+        },
+        isReseller: false
+    };
+
+    fetch('https://botplanner.azurewebsites.net/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+    })
+    .then(function(response) {
+        return response.json().then(function(data) {
+            return { ok: response.ok, data: data };
+        });
+    })
+    .then(function(result) {
+        if (result.ok && result.data && result.data.data && result.data.data.checkoutUrl) {
+            window.location.href = result.data.data.checkoutUrl;
+        } else if (result.ok) {
+            document.getElementById('signup-form').innerHTML =
+                '<div style="text-align:center; padding:20px 0;">' +
+                '<h2 style="color:#34d399; font-size:1.5rem; margin-bottom:16px;">Account Created!</h2>' +
+                '<p style="color:#94a3b8;">Check your inbox to verify your account before proceeding to checkout.</p>' +
+                '</div>';
+        } else {
+            errorMsg.textContent = (result.data && result.data.message) || 'Registration failed. Please try again.';
             errorMsg.style.display = 'block';
-            return;
+            btn.textContent = 'Continue to Checkout';
+            btn.disabled = false;
         }
+    })
+    .catch(function() {
+        errorMsg.textContent = 'Unable to connect. Please try again or contact support@bp-reports.com.';
+        errorMsg.style.display = 'block';
+        btn.textContent = 'Continue to Checkout';
+        btn.disabled = false;
+    });
+});
+</script>
 
-        if (pw.length < 8) {
-            errorMsg.textContent = 'Password must be at least 8 characters.';
-            errorMsg.style.display = 'block';
-            return;
-        }
-
-        btn.textContent = 'Creating account...';
-        btn.disabled = true;
-        errorMsg.style.display = 'none';
-
-        const payload = {
-            companyName:  document.getElementById('company').value,
-            firstName:    document.getElementById('firstName').value,
-            lastName:     document.getElementById('lastName').value,
-            email:        document.getElementById('email').value,
-            phone:        document.getElementById('phone').value,
-            website:      document.getElementById('website').value,
-            password:     pw
-        };
-
-        try {
-            // TODO: Replace with your confirmed Azure backend registration endpoint
-            const response = await fetch('https://botplanner.azurewebsites.net/api/auth/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                // Redirect to Stripe Checkout session URL returned by the backend
-                // The backend should create a Stripe Checkout session and return its URL
-                if (data.checkoutUrl) {
-                    window.location.href = data.checkoutUrl;
-                } else {
-                    // Fallback: show email confirmation message
-                    document.getElementById('signup-form').innerHTML =
-                        '<div style="text-align:center; padding:20px 0;">' +
-                        '<h2 style="color:#34d399; font-size:1.5rem; margin-bottom:16px;">Account Created!</h2>' +
-                        '<p style="color:#94a3b8;">We sent a confirmation email to ' + payload.email + '.<br>' +
-                        'Please check your inbox before proceeding to checkout.</p>' +
-                        '</div>';
-                }
-            } else {
-                const err = await response.json().catch(() => ({}));
-                errorMsg.textContent = err.message || 'Registration failed. Please try again.';
-                errorMsg.style.display = 'block';
-            }
-        } catch (err) {
-            errorMsg.textContent = 'Unable to connect. Please try
+</body>
+</html>

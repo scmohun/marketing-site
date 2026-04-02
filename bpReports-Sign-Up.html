@@ -167,19 +167,12 @@
                     window.location.href = data.checkoutUrl;
                 } else {
                     // Fallback: show email confirmation message
-                    document.getElementById('signup-form').innerHTML = `
-                        <div style="text-align:center; padding:20px 0;">
-                            <h2 style="color:#34d399; font-size:1.5rem; margin-bottom:16px;">Account Created!</h2>
-                            <p style="color:#94a3b8;">
-                                We've sent a confirmation email to <strong style="color:#e2e8f0;">${payload.email}</strong>.<br>
-                                Please check your inbox and click the link to verify your account<br>
-                                before proceeding to checkout.
-                            </p>
-                            <p style="color:#64748b; margin-top:16px; font-size:0.875rem;">
-                                Also check your spam folder if you don't see it within a few minutes.
-                            </p>
-                        </div>
-                    `;
+                    document.getElementById('signup-form').innerHTML =
+                        '<div style="text-align:center; padding:20px 0;">' +
+                        '<h2 style="color:#34d399; font-size:1.5rem; margin-bottom:16px;">Account Created!</h2>' +
+                        '<p style="color:#94a3b8;">We sent a confirmation email to ' + payload.email + '.<br>' +
+                        'Please check your inbox before proceeding to checkout.</p>' +
+                        '</div>';
                 }
             } else {
                 const err = await response.json().catch(() => ({}));

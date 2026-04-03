@@ -183,7 +183,7 @@ document.getElementById('signup-form').addEventListener('submit', function(e) {
     .then(function(result) {
         if (result.ok && result.data && result.data.data && result.data.data.stripeCustomerId) {
             var customerId = result.data.data.stripeCustomerId;
-            return fetch('https://botplanner.azurewebsites.net/api/stripe/customersession', {
+            return fetch('https://botplanner.azurewebsites.net/api/stripe/createcustomersession', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(customerId)

@@ -2,9 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Pricing | bot-Planner</title>
+    <title>Pricing | Small Business CFO</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+    <style>
+        .pricing-section {
+            padding: 60px 0;
+        }
+        .pricing-intro {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .pricing-intro p {
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 16px auto 0;
+        }
+        .botplanner-pricing {
+            margin-top: 60px;
+            padding-top: 60px;
+            border-top: 1px solid #1e293b;
+        }
+    </style>
 </head>
 <body>
 
@@ -25,44 +45,74 @@
     <div class="container">
         <h1>Simple Pricing for Strategic Finance</h1>
         <p class="subheadline">
-            Choose the solution that fits your stage — reporting automation or full strategic planning infrastructure.
+            Choose the plan that fits your stage —
+            reporting automation today, full strategic planning infrastructure tomorrow.
         </p>
     </div>
 </header>
 
-<section>
+<section class="pricing-section">
     <div class="container">
-        <div class="grid two-column">
 
-            <div class="card">
-                <h2>bp-Reports</h2>
-                <ul>
-                    <li>Hosted reporting solution</li>
-                    <li>Automated financial statements</li>
-                    <li>KPI dashboards</li>
-                    <li>Client-ready presentations</li>
-                </ul>
-                <br>
-                <a href="bpReports-Sign-Up.html" class="btn btn-primary">Start Free</a>
-            </div>
+        <div class="pricing-intro">
+            <h2>bp-Reports</h2>
+            <p>
+                Automated financial reporting for SMB CFOs.
+                Priced per entity — scale up or down anytime.
+            </p>
+        </div>
 
-            <div class="card">
+        <div id="pricing-table-container"></div>
+
+        <div class="botplanner-pricing">
+            <div class="card" style="max-width:640px; margin:0 auto; text-align:center;">
                 <h2>bot-Planner</h2>
-                <ul>
-                    <li>Continuous financial model</li>
-                    <li>Balanced forecasting engine</li>
+                <p style="color:#94a3b8; margin-top:12px;">
+                    The strategic financial planning engine for the AI era —
+                    unifying accounting and forecasting into one continuous financial system.
+                </p>
+                <ul style="text-align:left; margin-top:20px;">
+                    <li>Continuous financial model across P&amp;L, balance sheet, and cash flow</li>
+                    <li>Balanced forecasting engine — no reconciliation required</li>
                     <li>AI-ready financial architecture</li>
                     <li>Scenario planning infrastructure</li>
                 </ul>
                 <br>
-                <a href="Contact.html" class="btn btn-primary">Request Demo</a>
+                <a href="Contact.html" class="btn btn-primary">Request a Demo</a>
             </div>
-
         </div>
+
     </div>
 </section>
 
 <footer>
     <div class="container">
-        <p>© 2026 bot-Planner Inc. All rights reserved. &nbsp;·&nbsp;
-            <a href="/cdn-cgi/l/email-protection#71181f171e3113015c0314011e0305025f121e1c" style="color:#38bdf8;"><span class="__cf_email__" data-c
+        <p>&#169; 2026 bot-Planner Inc. All rights reserved. &nbsp;&#183;&nbsp;
+            <a href="mailto:info@bp-reports.com" style="color:#38bdf8;">info@bp-reports.com</a>
+        </p>
+    </div>
+</footer>
+
+<script>
+(function() {
+    var pricingTableId = 'prctbl_1THUnAAVgA2k71aAf3cWgV4R';
+    var publishableKey = 'pk_live_51OMIRKAVgA2k71aATpSRK5FR4wqaw8golZLMCMRCXbcDHveiFRxSQbxUdShjrJisBtaNm03JH1Q919XbLlZ3c5XB00iOENMkGa';
+
+    var params = new URLSearchParams(window.location.search);
+    var clientSecret = params.get('cs');
+
+    var container = document.getElementById('pricing-table-container');
+    var table = document.createElement('stripe-pricing-table');
+    table.setAttribute('pricing-table-id', pricingTableId);
+    table.setAttribute('publishable-key', publishableKey);
+
+    if (clientSecret) {
+        table.setAttribute('customer-session-client-secret', clientSecret);
+    }
+
+    container.appendChild(table);
+})();
+</script>
+
+</body>
+</html>

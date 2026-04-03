@@ -52,17 +52,19 @@
 
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required placeholder="you@company.com">
-                    <p style="font-size:0.85rem; color:#64748b; margin-top:6px;">
-                        We'll send a confirmation link to this address.
-                    </p>
+                    <input type="email" id="email" name="email" required placeholder="you@company.com" autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmEmail">Confirm Email</label>
+                    <input type="email" id="confirmEmail" name="confirmEmail" required placeholder="Re-enter your email" autocomplete="email">
                 </div>
 
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" required placeholder="+1 (555) 000-0000">
+                    <input type="tel" id="phone" name="phone" required placeholder="212-555-1212">
                     <p style="font-size:0.85rem; color:#64748b; margin-top:6px;">
-                        Used to verify your account via SMS.
+                        Format: 212-555-1212
                     </p>
                 </div>
 
@@ -74,6 +76,9 @@
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" name="password" required placeholder="At least 8 characters" autocomplete="new-password">
+                    <p style="font-size:0.85rem; color:#64748b; margin-top:6px;">
+                        Must include uppercase, lowercase, number and special character (@$!%*?&amp;.,)
+                    </p>
                 </div>
 
                 <div class="form-group">
@@ -121,8 +126,16 @@ document.getElementById('signup-form').addEventListener('submit', function(e) {
     var btn = document.getElementById('signup-btn');
     var errorMsg = document.getElementById('error-msg');
 
+    var email = document.getElementById('email').value;
+    var confirmEmail = document.getElementById('confirmEmail').value;
     var pw = document.getElementById('password').value;
     var pw2 = document.getElementById('confirmPassword').value;
+
+    if (email !== confirmEmail) {
+        errorMsg.textContent = 'Email addresses do not match. Please try again.';
+        errorMsg.style.display = 'block';
+        return;
+    }
 
     if (pw !== pw2) {
         errorMsg.textContent = 'Passwords do not match. Please try again.';
@@ -140,20 +153,21 @@ document.getElementById('signup-form').addEventListener('submit', function(e) {
     btn.disabled = true;
     errorMsg.style.display = 'none';
 
+    var website = document.getElementById('website').value;
+    var websiteUrl = website ? (website.indexOf('http') === 0 ? website : 'https://' + website) : 'https://example.com';
+
     var payload = {
-        companyName: document.getElementById('company').value,
         firstName: document.getElementById('firstName').value,
         lastName: document.getElementById('lastName').value,
-        email: document.getElementById('email').value,
+        email: email,
         phoneNumber: document.getElementById('phone').value,
-        website: document.getElementById('website').value,
         password: pw,
+        isReseller: false,
         company: {
             name: document.getElementById('company').value,
             businessType: 'SaaS',
-            websiteUrl: document.getElementById('website').value || 'https://example.com'
-        },
-        isReseller: false
+            websiteUrl: websiteUrl
+        }
     };
 
     fetch('https://botplanner.azurewebsites.net/api/auth/register', {
@@ -167,16 +181,27 @@ document.getElementById('signup-form').addEventListener('submit', function(e) {
         });
     })
     .then(function(result) {
-        if (result.ok && result.data && result.data.data && result.data.data.checkoutUrl) {
-            window.location.href = result.data.data.checkoutUrl;
-        } else if (result.ok) {
-            document.getElementById('signup-form').innerHTML =
-                '<div style="text-align:center; padding:20px 0;">' +
-                '<h2 style="color:#34d399; font-size:1.5rem; margin-bottom:16px;">Account Created!</h2>' +
-                '<p style="color:#94a3b8;">Check your inbox to verify your account before proceeding to checkout.</p>' +
-                '</div>';
+        if (result.ok && result.data && result.data.data && result.data.data.stripeCustomerId) {
+            var customerId = result.data.data.stripeCustomerId;
+            return fetch('https://botplanner.azurewebsites.net/api/stripe/customersession', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(customerId)
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(sessionData) {
+                if (sessionData && sessionData.data) {
+                    window.location.href = 'Pricing.html?cs=' + encodeURIComponent(sessionData.data);
+                } else {
+                    window.location.href = 'Pricing.html';
+                }
+            });
         } else {
-            errorMsg.textContent = (result.data && result.data.message) || 'Registration failed. Please try again.';
+            var msg = 'Registration failed. Please try again.';
+            if (result.data && result.data.message) {
+                msg = result.data.message;
+            }
+            errorMsg.textContent = msg;
             errorMsg.style.display = 'block';
             btn.textContent = 'Continue to Checkout';
             btn.disabled = false;

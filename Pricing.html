@@ -7,27 +7,19 @@
     <link rel="stylesheet" href="styles.css">
     <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
     <style>
-        .pricing-section {
-            padding: 60px 0;
-        }
-        .pricing-intro {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-        .pricing-intro p {
-            color: #94a3b8;
-            max-width: 600px;
-            margin: 16px auto 0;
-        }
-        .botplanner-pricing {
-            margin-top: 60px;
-            padding-top: 60px;
-            border-top: 1px solid #1e293b;
-        }
+        .pricing-section { padding: 60px 0; }
+        .pricing-intro { text-align: center; margin-bottom: 48px; }
+        .pricing-intro h2 { font-size: 2rem; color: #f1f5f9; }
+        .pricing-intro p { color: #94a3b8; max-width: 600px; margin: 16px auto 0; font-size: 1.05rem; line-height: 1.7; }
+        .pricing-badge { display: inline-block; background: #38bdf8; color: #0f172a; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 16px; }
+        .pricing-features { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; margin-bottom: 40px; }
+        .pricing-feature { display: flex; align-items: center; gap: 8px; color: #94a3b8; font-size: 0.9rem; }
+        .pricing-feature::before { content: "✓"; color: #38bdf8; font-weight: 700; }
+        .botplanner-pricing { margin-top: 60px; padding-top: 60px; border-top: 1px solid #1e293b; }
+        #pricing-table-container { max-width: 900px; margin: 0 auto; }
     </style>
 </head>
 <body>
-
 <nav class="navbar">
     <div class="container nav-content">
         <a href="index.html" class="logo">Small Business CFO</a>
@@ -40,37 +32,30 @@
         </ul>
     </div>
 </nav>
-
 <header class="page-hero">
     <div class="container">
         <h1>Simple Pricing for Strategic Finance</h1>
-        <p class="subheadline">
-            Choose the plan that fits your stage —
-            reporting automation today, full strategic planning infrastructure tomorrow.
-        </p>
+        <p class="subheadline">Choose the plan that fits your stage — reporting automation today, full strategic planning infrastructure tomorrow.</p>
     </div>
 </header>
-
 <section class="pricing-section">
     <div class="container">
-
         <div class="pricing-intro">
-            <h2>bp-Reports</h2>
-            <p>
-                Automated financial reporting for SMB CFOs.
-                Priced per entity — scale up or down anytime.
-            </p>
+            <span class="pricing-badge">bp-Reports</span>
+            <h2>Financial Reporting, Per Entity</h2>
+            <p>Automated financial reporting for SMB CFOs. Priced per entity — scale up or down anytime.</p>
         </div>
-
+        <div class="pricing-features">
+            <span class="pricing-feature">60-day free trial</span>
+            <span class="pricing-feature">No setup fees</span>
+            <span class="pricing-feature">Cancel anytime</span>
+            <span class="pricing-feature">Unlimited users per entity</span>
+        </div>
         <div id="pricing-table-container"></div>
-
         <div class="botplanner-pricing">
             <div class="card" style="max-width:640px; margin:0 auto; text-align:center;">
                 <h2>bot-Planner</h2>
-                <p style="color:#94a3b8; margin-top:12px;">
-                    The strategic financial planning engine for the AI era —
-                    unifying accounting and forecasting into one continuous financial system.
-                </p>
+                <p style="color:#94a3b8; margin-top:12px;">The strategic financial planning engine for the AI era — unifying accounting and forecasting into one continuous financial system.</p>
                 <ul style="text-align:left; margin-top:20px;">
                     <li>Continuous financial model across P&amp;L, balance sheet, and cash flow</li>
                     <li>Balanced forecasting engine — no reconciliation required</li>
@@ -81,10 +66,8 @@
                 <a href="Contact.html" class="btn btn-primary">Request a Demo</a>
             </div>
         </div>
-
     </div>
 </section>
-
 <footer>
     <div class="container">
         <p>&#169; 2026 bot-Planner Inc. All rights reserved. &nbsp;&#183;&nbsp;
@@ -92,27 +75,19 @@
         </p>
     </div>
 </footer>
-
 <script>
 (function() {
     var pricingTableId = 'prctbl_1THUnAAVgA2k71aAf3cWgV4R';
     var publishableKey = 'pk_live_51OMIRKAVgA2k71aATpSRK5FR4wqaw8golZLMCMRCXbcDHveiFRxSQbxUdShjrJisBtaNm03JH1Q919XbLlZ3c5XB00iOENMkGa';
-
     var params = new URLSearchParams(window.location.search);
     var clientSecret = params.get('cs');
-
     var container = document.getElementById('pricing-table-container');
     var table = document.createElement('stripe-pricing-table');
     table.setAttribute('pricing-table-id', pricingTableId);
     table.setAttribute('publishable-key', publishableKey);
-
-    if (clientSecret) {
-        table.setAttribute('customer-session-client-secret', clientSecret);
-    }
-
+    if (clientSecret) { table.setAttribute('customer-session-client-secret', clientSecret); }
     container.appendChild(table);
 })();
 </script>
-
 </body>
 </html>

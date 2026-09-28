@@ -5,16 +5,33 @@
     <title>bp-Reports | Professional Financial Reporting</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <script async src="https://js.stripe.com/v3/pricing-table.js"></script>
+    <style>
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 6px; color: #94a3b8; font-size: 0.9rem; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 10px 12px; background: #1e293b; border: 1px solid #334155;
+            border-radius: 6px; color: #f1f5f9; font-size: 1rem; font-family: inherit;
+        }
+        .form-group textarea { min-height: 120px; resize: vertical; }
+        .pricing-intro { text-align: center; margin-bottom: 48px; }
+        .pricing-intro h2 { font-size: 2rem; color: #f1f5f9; }
+        .pricing-intro p { color: #94a3b8; max-width: 600px; margin: 16px auto 0; font-size: 1.05rem; line-height: 1.7; }
+        .pricing-features { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; margin-bottom: 40px; }
+        .pricing-feature { display: flex; align-items: center; gap: 8px; color: #94a3b8; font-size: 0.9rem; }
+        .pricing-feature::before { content: "✓"; color: #38bdf8; font-weight: 700; }
+        #pricing-table-container { max-width: 900px; margin: 0 auto; }
+    </style>
 </head>
 <body>
 
 <nav class="navbar">
     <div class="container nav-content">
-        <a href="index.html" class="logo">bp-Reports</a>
+        <a href="#" class="logo">bp-Reports</a>
         <ul class="nav-links">
-            <li><a href="Pricing.html">Pricing</a></li>
-            <li><a href="Contact.html">Contact</a></li>
-            <li><a href="Pricing.html" class="nav-cta">Sign Up</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#who-its-for">Who It's For</a></li>
+            <li><a href="#pricing">Pricing</a></li>
             <li><a href="https://app.bp-reports.com/sign-in" class="nav-cta" style="background-color:transparent; border:1px solid #38bdf8; color:#38bdf8 !important;">Sign In</a></li>
         </ul>
     </div>
@@ -27,29 +44,38 @@
             bp-Reports transforms accounting data into clean, client-ready financial presentations automatically —
             so you can focus on insight, not formatting.
         </p>
-        <p style="color:#94a3b8; font-size:0.95rem; margin-top:-8px; margin-bottom:24px;">
-            A Small Business CFO solution
-        </p>
-        <a href="Contact.html" class="btn btn-primary">Request a Demo</a>
+        <div class="cta-buttons">
+            <a href="#pricing" class="btn btn-primary">Start Free Trial</a>
+        </div>
     </div>
 </header>
 
 <section class="section-dark">
     <div class="container">
-        <h2>The Reporting Problem</h2>
+        <h2>The Problem with Formal Financial Statements</h2>
         <div class="grid two-column">
             <div class="card">
-                <p>Finance professionals spend hours:</p>
-                <ul>
-                    <li>Exporting accounting data</li>
-                    <li>Reformatting financial statements</li>
-                    <li>Building charts and visuals</li>
-                    <li>Preparing client-ready reports</li>
+                <p style="font-weight:600;">Excel Templates for Preparing Financial Statement Presentations</p>
+                <ul style="margin-top:16px;">
+                    <li>The number one choice for accountants</li>
+                    <li>Reliant on system reports that rely on the COA</li>
+                    <li>A multi-step manual process</li>
+                    <li>Impractical for any other purpose</li>
+                    <li>Single use — every period is a repeat process</li>
                 </ul>
             </div>
             <div class="card">
-                <p>It's repetitive work. It's time consuming. And it limits the value you can deliver.</p>
-                <p style="margin-top:16px;">Reporting should elevate your insight — not consume your time.</p>
+                <p>
+                    The problem isn't effort — it's that the template's usefulness depends entirely on
+                    one company's Chart of Accounts. A new client means rebuilding from scratch. A
+                    changed account means patching whatever just broke.
+                </p>
+                <p style="margin-top:16px;">
+                    For accountants who build these templates by hand, that's a rebuild-and-patch
+                    cycle eating time that should go to analysis. For bookkeepers who hand over the
+                    system's own reports instead, the result rarely looks as polished as what a CPA
+                    firm would deliver — even when the underlying work is just as rigorous.
+                </p>
             </div>
         </div>
     </div>
@@ -60,39 +86,208 @@
         <h2>The bp-Reports Solution</h2>
         <div class="grid two-column">
             <div class="card">
-                <ul>
-                    <li>Professionally formatted financial statements</li>
-                    <li>Visual KPI dashboards</li>
-                    <li>Clean presentation-ready layouts</li>
-                    <li>Structured financial logic</li>
+                <p style="font-weight:600;">One Framework, Every Client</p>
+                <ul style="margin-top:16px;">
+                    <li>Independent of any single company's Chart of Accounts</li>
+                    <li>Fully automated — no manual rebuild each period</li>
+                    <li>The same structure works for every client, every time</li>
+                    <li>Professionally formatted, presentation-ready output</li>
+                    <li>Visual KPI dashboards included</li>
                 </ul>
             </div>
             <div class="card">
                 <p>
-                    Built on the same structured financial architecture as bot-Planner,
-                    bp-Reports ensures your reporting is not just attractive —
-                    but financially intelligent.
+                    Because the structure doesn't depend on any one client's Chart of Accounts,
+                    there's nothing to rebuild when you take on a new client, and nothing to patch
+                    when an account changes.
+                </p>
+                <p style="margin-top:16px;">
+                    The same framework that works for your largest client works for your smallest —
+                    accountants get their time back, and bookkeepers get output that looks like it
+                    came from a CFO's office.
                 </p>
             </div>
         </div>
     </div>
 </section>
 
-<section class="section-dark">
+<section id="how-it-works" class="section-dark">
+    <div class="container">
+        <h2>How It Works</h2>
+        <div class="grid three-column">
+            <div class="card">
+                <p style="font-size:0.8rem; color:#38bdf8; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;">Step 1</p>
+                <p style="margin-top:8px; font-weight:600;">Connect your books</p>
+                <p style="margin-top:12px; color:#94a3b8;">Connect QuickBooks Online directly, or upload a trial balance from any accounting system.</p>
+            </div>
+            <div class="card">
+                <p style="font-size:0.8rem; color:#38bdf8; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;">Step 2</p>
+                <p style="margin-top:8px; font-weight:600;">Generate the report</p>
+                <p style="margin-top:12px; color:#94a3b8;">P&amp;L, Balance Sheet, and Cash Flow — Trend or Comparative views — built directly in Excel, ready in seconds.</p>
+            </div>
+            <div class="card">
+                <p style="font-size:0.8rem; color:#38bdf8; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;">Step 3</p>
+                <p style="margin-top:8px; font-weight:600;">Share it with your client</p>
+                <p style="margin-top:12px; color:#94a3b8;">Formatted, consistent, and presentation-ready — no rebuilding the same template every month.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="who-its-for">
+    <div class="container">
+        <h2>Who It's For</h2>
+        <p style="text-align:center; color:#94a3b8; max-width:640px; margin:0 auto 40px;">
+            Even after automating transaction processing, reconciliations and adjustments, the need
+            for human review never goes away. bp-Reports is built for that review — turning it into
+            the same structured, reliable output, no matter who's doing it.
+        </p>
+        <div class="grid two-column">
+            <div class="card">
+                <p style="font-weight:600; font-size:1.1rem;">CPA Firms, Fractional Controllers and Accountants</p>
+                <p style="margin-top:12px;">The bp-Reports universal reporting framework is consistent, reliable and comparable for every client, regardless of their accounting system or how their COA is arranged.</p>
+                <ul style="margin-top:16px;">
+                    <li>Standardize reporting across your entire client portfolio</li>
+                    <li>Streamline employee training and collaboration</li>
+                    <li>Replace report templates with one-step reporting</li>
+                    <li>Simplify book-to-tax review and reconciliation</li>
+                    <li>Benchmark clients against each other on the same structure</li>
+                </ul>
+            </div>
+            <div class="card">
+                <p style="font-weight:600; font-size:1.1rem;">Bookkeepers and Accountants</p>
+                <p style="margin-top:12px;">Deliver the same polished, structured financials a CPA firm would — no new tools to learn, no extra training required.</p>
+                <ul style="margin-top:16px;">
+                    <li>Standardize your review process across every client</li>
+                    <li>Bypass the Chart of Accounts — no system reports to reconcile</li>
+                    <li>Review, reconcile, adjust and repeat directly from client financials</li>
+                    <li>Catch problems early with visuals built to highlight what needs attention</li>
+                    <li>Produce tax-ready packages without reformatting</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="pricing" class="section-dark">
+    <div class="container">
+        <div class="pricing-intro">
+            <h2>Simple, Per-Entity Pricing</h2>
+            <p>$40 per entity, per month — unlimited users included, cancel anytime, no setup fees, no long-term contracts.</p>
+        </div>
+        <p style="text-align:center; color:#94a3b8; margin:0 auto 32px; max-width:560px;">
+            Sign up now and receive a 60-day, no-obligation trial subscription — try it on your own
+            data before you commit.
+        </p>
+        <div id="pricing-table-container"></div>
+    </div>
+</section>
+
+<section>
+    <div class="container" style="text-align:center; max-width:640px; margin:0 auto;">
+        <h2>Support</h2>
+        <p style="color:#94a3b8; margin-top:16px;">
+            Support is included at no charge. Questions about setup, your data, or anything in your
+            reports — reach out any time at
+            <a href="mailto:support@bp-reports.com" style="color:#38bdf8;">support@bp-reports.com</a>.
+        </p>
+    </div>
+</section>
+
+<section id="contact" class="section-dark">
     <div class="container" style="text-align:center;">
-        <h2>Upgrade Your Reporting</h2>
-        <p class="subheadline">Deliver higher-value insight without increasing workload.</p>
-        <a href="Contact.html" class="btn btn-primary">Request a Demo</a>
+        <h2>Contact Sales</h2>
+        <div class="card" style="max-width:640px; margin:32px auto 0; text-align:left;">
+            <form id="contact-form">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required placeholder="Your full name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="you@company.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required placeholder="Tell us how we can help..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" id="submit-btn">Send Message</button>
+                <p id="success-msg" style="display:none; margin-top:12px; color:#34d399;">
+                    Thank you — we'll be in touch shortly.
+                </p>
+                <p id="error-msg" style="display:none; margin-top:12px; color:#f87171;">
+                    Something went wrong. Please try again or email us at sales@bp-reports.com.
+                </p>
+            </form>
+        </div>
     </div>
 </section>
 
 <footer>
     <div class="container">
-        <p>© 2026 bot-Planner Inc. All rights reserved. &nbsp;·&nbsp;
+        <p>© 2026 bp-Reports. All rights reserved. &nbsp;·&nbsp;
             <a href="mailto:sales@bp-reports.com" style="color:#38bdf8;">sales@bp-reports.com</a>
         </p>
     </div>
 </footer>
+
+<script>
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var btn = document.getElementById('submit-btn');
+    var success = document.getElementById('success-msg');
+    var error = document.getElementById('error-msg');
+
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    success.style.display = 'none';
+    error.style.display = 'none';
+
+    var data = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        message: document.getElementById('message').value
+    };
+
+    fetch('https://contact-form.smohun.workers.dev', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(result) {
+        if (result.success) {
+            success.style.display = 'block';
+            document.getElementById('contact-form').reset();
+        } else {
+            error.style.display = 'block';
+        }
+    })
+    .catch(function() {
+        error.style.display = 'block';
+    })
+    .finally(function() {
+        btn.textContent = 'Send Message';
+        btn.disabled = false;
+    });
+});
+</script>
+
+<script>
+(function() {
+    var pricingTableId = 'prctbl_1THUnAAVgA2k71aAf3cWgV4R';
+    var publishableKey = 'pk_live_51OMIRKAVgA2k71aATpSRK5FR4wqaw8golZLMCMRCXbcDHveiFRxSQbxUdShjrJisBtaNm03JH1Q919XbLlZ3c5XB00iOENMkGa';
+    var params = new URLSearchParams(window.location.search);
+    var clientSecret = params.get('cs');
+    var container = document.getElementById('pricing-table-container');
+    var table = document.createElement('stripe-pricing-table');
+    table.setAttribute('pricing-table-id', pricingTableId);
+    table.setAttribute('publishable-key', publishableKey);
+    if (clientSecret) { table.setAttribute('customer-session-client-secret', clientSecret); }
+    container.appendChild(table);
+})();
+</script>
 
 </body>
 </html>
